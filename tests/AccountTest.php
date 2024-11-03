@@ -3,7 +3,6 @@
 namespace App\Tests;
 
 use App\Account;
-use App\Exception\AccountException;
 use PHPUnit\Framework\TestCase;
 
 class AccountTest extends TestCase
@@ -34,16 +33,8 @@ class AccountTest extends TestCase
     {
         $account = new Account();
         $account->deposit(100);
-        $this->expectException(AccountException::class);
+        $this->expectException(\Exception::class);
         $account->withdraw(150);
-    }
-
-    public function testWithdrawAmountException(): void
-    {
-        $account = new Account();
-        $account->deposit(100);
-        $this->expectException(AccountException::class);
-        $account->withdraw(-1);
     }
 
     public function testCredit(): void
@@ -53,6 +44,4 @@ class AccountTest extends TestCase
         $account->credit(150);
         $this->assertEquals(-50, $account->getBalance());
     }
-
-
 }

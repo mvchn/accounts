@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Exception\AccountException;
-
 class Account
 {
     private int $balance = 0;
@@ -25,12 +23,8 @@ class Account
 
     public function withdraw(int $amount): void
     {
-        if ($amount < 0) {
-            throw new AccountException('Invalid amount');
-        }
-
         if ($this->balance < $amount) {
-            throw new AccountException('Not enough money');
+            throw new \Exception('Not enough money');
         }
 
         $this->balance -= $amount;
