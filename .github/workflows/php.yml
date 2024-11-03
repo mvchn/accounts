@@ -35,4 +35,7 @@ jobs:
         run: composer install --prefer-dist --no-progress
 
       - name: Run test suite
-        run: php ./vendor/bin/phpunit tests
+        run: composer tests
+
+      - name: Run with coverage
+        run: composer coverage
