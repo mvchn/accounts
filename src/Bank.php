@@ -4,7 +4,6 @@ namespace App;
 
 use App\Exception\AccountException;
 use App\Exception\BankException;
-use App\Exception\ValidationException;
 use Monolog\Level;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -13,10 +12,11 @@ class Bank
 {
     public function transfer(Account $from, Account $to, int $amount): void
     {
+        $date = new \DateTime();
         $log = new Logger('bank');
 
         // Lov-level debug. Change level for production mode
-        $log->pushHandler(new StreamHandler('var/log/bank-warning.log', Level::Debug));
+        $log->pushHandler(new StreamHandler(sprintf('var/log/bank-local-%s.log', $date->format("Y-m-d")), Level::Debug));
 
         try {
             $log->debug('Data: ', ['amount' => $amount, 'from' => $from->getBalance(), 'to' => $to->getBalance()]);
@@ -33,7 +33,7 @@ class Bank
         }
 
         $log->notice('Increased balance');
-        $log->info(sprintf('Transfered %d from %s to %s', $amount, $from, $to));
+        $log->info(sprintf('Transferred %d from %s to %s', $amount, $from, $to));
     }
 
 
