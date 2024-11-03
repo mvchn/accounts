@@ -35,6 +35,4 @@ class Bank
         $log->notice('Increased balance');
         $log->info(sprintf('Transferred %d from %s to %s', $amount, $from, $to));
     }
-
-
 }
