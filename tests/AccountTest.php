@@ -4,6 +4,7 @@ namespace App\Tests;
 
 use App\Account;
 use App\Exception\AccountException;
+use App\Exception\ValidationException;
 use PHPUnit\Framework\TestCase;
 
 class AccountTest extends TestCase
@@ -42,8 +43,8 @@ class AccountTest extends TestCase
     {
         $account = new Account();
         $account->deposit(100);
-        $this->expectException(AccountException::class);
-        $this->expectExceptionMessage('Account exception: Invalid amount');
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('Invalid amount: -1');
         $account->withdraw(-1);
     }
 
