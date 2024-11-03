@@ -1,0 +1,30 @@
+#!/usr/bin/env php
+<?php
+
+$welcome = <<<EOT
+=======================================
+# Welcome to the Bank Accounts Console
+=======================================
+
+
+EOT;
+
+echo $welcome;
+
+$input = 'n';
+$input = strtolower(readline("This command recreates your database. Are you sure? (y/N): "));
+if ($input === 'n') {
+    echo "OK. \n";
+    exit;
+}
+
+$db = new \PDO(sprintf('sqlite:%s', __DIR__ . '/../var/data/local.db'));
+$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
+$createTablesSql = file_get_contents(__DIR__ . '/../database/init.sql');
+$parts = explode(';', $createTablesSql);
+foreach ($parts as $part) {
+    $db->query($part);
+}
+
+echo "Database initialized\n";
