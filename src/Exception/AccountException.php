@@ -8,5 +8,4 @@ class AccountException extends \RuntimeException implements \Throwable
     {
         parent::__construct("Account exception: $message");
     }
-
 }
