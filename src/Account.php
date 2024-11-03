@@ -7,11 +7,21 @@ use App\Exception\ValidationException;
 
 class Account
 {
+
     private int $balance = 0;
+
+    public function __construct(private readonly int $id)
+    {
+    }
 
     public function __toString(): string
     {
-        return 'Balance: ' . $this->balance;
+        return sprintf('#%d Balance: %d', $this->id, $this->balance);
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     public function getBalance(): int

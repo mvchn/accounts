@@ -12,8 +12,8 @@ class BankTest extends TestCase
     public function testValidationException(): void
     {
         $bank = new Bank();
-        $from = (new Account())->deposit(100);
-        $to = new Account();
+        $from = (new Account(1))->deposit(100);
+        $to = new Account(2);
 
         $this->expectException(BankException::class);
         $bank->transfer($from, $to, 0);
@@ -22,9 +22,9 @@ class BankTest extends TestCase
     public function testBankException(): void
     {
         $bank = new Bank();
-        $from = new Account();
+        $from = new Account(1);
         $from->deposit(100);
-        $to = new Account();
+        $to = new Account(2);
 
         $this->expectException(BankException::class);
         $bank->transfer($from, $to, 150);
@@ -33,9 +33,9 @@ class BankTest extends TestCase
     public function testTransferSuccess(): void
     {
         $bank = new Bank();
-        $from = new Account();
+        $from = new Account(1);
         $from->deposit(100);
-        $to = new Account();
+        $to = new Account(2);
 
         $bank->transfer($from, $to, 50);
 
