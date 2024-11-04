@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
 $welcome = <<<EOT
 =======================================
 # Welcome to the Bank Accounts Console
@@ -28,3 +30,30 @@ foreach ($parts as $part) {
 }
 
 echo "Database initialized\n";
+
+$input = 'y';
+$input = strtolower(readline("Load sample data? (Y/n): "));
+if ($input === 'n') {
+    echo "OK. \n";
+    exit;
+}
+
+use App\User;
+use App\UserRepository;
+
+$users = [
+    new User('admin', '+1234567890'),
+    new User('user', '+0987654321')
+];
+
+$repo = new UserRepository($db);
+$repo->insertUsers($users);
+
+echo "Sample data loaded\n";
+
+$users = $repo->fetchAll();
+
+foreach ($users as $user) {
+    echo sprintf('#%d | phone: %s, name: %s | %s', $user['id'], $user['phone'], $user['name'], $user['created_at']);
+    echo "\n";
+}
