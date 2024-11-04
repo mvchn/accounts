@@ -5,9 +5,9 @@ CREATE TABLE app_banks (
    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-drop table if exists app_users;
-create table app_users (
-    id integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+DROP TABLE IF EXISTS app_users;
+CREATE TABLE app_users (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     name VARCHAR(255) NOT NULL,
     phone VARCHAR(255) NOT NULL,
     email VARCHAR(255) DEFAULT NULL,
