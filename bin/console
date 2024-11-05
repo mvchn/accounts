@@ -20,6 +20,8 @@ if ($input === 'n') {
     exit;
 }
 
+//TODO: drop database file?
+
 $db = new \PDO(sprintf('sqlite:%s', __DIR__ . '/../var/data/local.db'));
 $db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
