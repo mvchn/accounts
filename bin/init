@@ -48,7 +48,7 @@ $users = [
     new User('user', '+0987654321')
 ];
 
-$repo = new UserRepository($db);
+$repo = new UserRepository($db, 'app_users');
 $repo->insertUsers($users);
 
 echo "Sample data loaded\n";
