@@ -27,14 +27,14 @@ class UserRepositoryTest extends TestCase
 
     public function testNotFound(): void
     {
-        $repository = new UserRepository($this->db);
+        $repository = new UserRepository($this->db, 'app_users');
         $this->expectException(RecordNotFoundException::class);
         $repository->getUser(1);
     }
 
     public function testGetUser(): void
     {
-        $repository = new UserRepository($this->db);
+        $repository = new UserRepository($this->db, 'app_users');
         $user = new User('Test User', '+1234567890');
         $user->setUserId(1);
         $repository->addUser($user);
@@ -44,7 +44,7 @@ class UserRepositoryTest extends TestCase
 
     public function testInsertSuccess(): void
     {
-        $repository = new UserRepository($this->db);
+        $repository = new UserRepository($this->db, 'app_users');
         $users = [
             new User('Test User', '+1234567890'),
             new User('Admin User', '+0987654321'),

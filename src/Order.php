@@ -5,11 +5,19 @@ namespace App;
 class Order
 {
 
+    private $userName;
+
+    private $serviceName;
+
+    private int $capacity;
+
     private Money $amount;
     private bool $active;
 
-    public function __construct(Money $amount)
+    public function __construct(string $userName, string $serviceName, Money $amount)
     {
+        $this->userName = $userName;
+        $this->serviceName = $serviceName;
         $this->amount = $amount;
         $this->active = false;
     }
@@ -19,13 +27,30 @@ class Order
         return $this->amount;
     }
 
+    public function getUserName(): string
+    {
+        return $this->userName;
+    }
+
+    public function getServiceName(): string
+    {
+        return $this->serviceName;
+    }
+
     public function isActive(): bool
     {
         return $this->active;
     }
 
+    public function setCapacity(int $capacity): self
+    {
+        $this->capacity = $capacity;
+        return $this;
+    }
+
     public function send(): void
     {
+        throw new \Exception('Not implemented');
         $this->active = true;
     }
 }
