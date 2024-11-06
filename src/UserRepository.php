@@ -5,16 +5,9 @@ namespace App;
 use App\Exception\RecordNotFoundException;
 use App\User;
 
-class UserRepository
+class UserRepository extends AbstractRepository
 {
     private array $users = [];
-
-    private \PDO $db;
-
-    public function __construct(\PDO $db)
-    {
-        $this->db = $db;
-    }
 
     public function addUser(User $user): void
     {
@@ -35,20 +28,6 @@ class UserRepository
         }
 
         throw new RecordNotFoundException(sprintf("User with id %d not found", $id));
-    }
-
-    public function fetchAll(): array
-    {
-        $query = "SELECT * FROM app_users";
-        $result = $this->db->query($query);
-        return $result->fetchAll(\PDO::FETCH_ASSOC);
-    }
-
-    public function fetchOne(int $id): array
-    {
-        $query = sprintf("SELECT * FROM app_users WHERE id = %d", $id);
-        $result = $this->db->query($query);
-        return $result->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function fetchUsers(): array

@@ -4,6 +4,7 @@ namespace App;
 
 use App\Exception\AccountException;
 use App\Exception\BankException;
+use App\Exception\ValidationException;
 use Monolog\Level;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -34,5 +35,26 @@ class Bank
 
         $log->notice('Increased balance');
         $log->info(sprintf('Transferred %d from %s to %s', $amount, $from, $to));
+    }
+
+    public function subscribeService(User $user, Service $service): void
+    {
+        $log = new Logger('service');
+
+        try {
+            $order = $service->orderRequest([
+                'user_name' => $user->getName(),
+                'service_name' => $service->getName(),
+                'amount' => 100,
+                'currency' => 'USD',
+                'capacity' => 1
+            ]);
+        } catch (ValidationException $e) {
+            // TODO: Log error data $e
+            $log->debug($e->getMessage());
+            throw new BankException('Service subscription failed');
+        }
+
+
     }
 }

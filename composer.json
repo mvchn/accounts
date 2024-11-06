@@ -5,6 +5,7 @@
   "prefer-stable": true,
   "require": {
     "php": ">=8.2",
+    "ext-pdo": "*",
     "psr/log": "^3.0",
     "monolog/monolog": "^3.7"
   },
