@@ -29,4 +29,19 @@ class OrderRepository extends AbstractRepository
 
         throw new RecordNotFoundException(sprintf("Order with id %d not found", $id));
     }
+
+    public function insertOrder(Order $order): void
+    {
+        $query = sprintf(
+            "INSERT INTO app_orders (service_name, user_name, amount, currency, capacity, active, created_at) VALUES ('%s', '%s', %d, '%s', %d, %d, '%s')",
+            $order->getServiceName(),
+            $order->getUserName(),
+            $order->getAmount()->getAmount(),
+            $order->getAmount()->getCurrency(),
+            $order->isActive(),
+            $order->getCapacity(),
+            (new \DateTime())->format('Y-m-d H:i:s')
+        );
+        $this->db->exec($query);
+    }
 }

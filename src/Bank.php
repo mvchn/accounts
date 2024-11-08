@@ -11,6 +11,14 @@ use Monolog\Handler\StreamHandler;
 
 class Bank
 {
+    private \PDO $db;
+
+    public function __construct()
+    {
+        $this->db = new \PDO(sprintf('sqlite:%s', __DIR__ . '/../var/data/local.db'));
+        $this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+    }
+
     public function transfer(Account $from, Account $to, int $amount): void
     {
         $date = new \DateTime();
@@ -39,8 +47,6 @@ class Bank
 
     public function subscribeService(User $user, Service $service): void
     {
-        $log = new Logger('service');
-
         try {
             $order = $service->orderRequest([
                 'user_name' => $user->getName(),
@@ -50,11 +56,14 @@ class Bank
                 'capacity' => 1
             ]);
         } catch (ValidationException $e) {
+            $log = new Logger('validation');
             // TODO: Log error data $e
             $log->debug($e->getMessage());
             throw new BankException('Service subscription failed');
         }
 
+        $orderRepository = new OrderRepository($this->db, 'app_orders');
 
+        $orderRepository->insertOrder($order);
     }
 }

@@ -8,7 +8,7 @@ class Validator
 
     public function addRule(string $field, string $rule): void
     {
-        if (!in_array($rule, $this->rules[$field])) {
+        if  (!isset($this->rules[$field])) {
             $this->rules[$field][] = $rule;
         }
     }

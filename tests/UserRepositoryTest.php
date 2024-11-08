@@ -5,16 +5,12 @@ namespace App\Tests;
 use App\User;
 use App\UserRepository;
 use App\Exception\RecordNotFoundException;
-use PHPUnit\Framework\TestCase;
 
-class UserRepositoryTest extends TestCase
+class UserRepositoryTest extends IntegrationTestCase
 {
-    private \PDO $db;
-
     public function setUp(): void
     {
-        $this->db = new \PDO(sprintf('sqlite:%s', __DIR__ . '/../var/data/test.db'));
-        $this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        parent::setUp();
         $this->db->exec('DROP TABLE IF EXISTS app_users');
         $this->db->exec('CREATE TABLE app_users(
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -59,7 +55,7 @@ class UserRepositoryTest extends TestCase
         $this->assertCount(2, $users);
     }
 
-    public function __tearDown(): void
+    public function tearDown(): void
     {
         $this->db->exec('DROP TABLE app_users');
     }
