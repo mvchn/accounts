@@ -48,6 +48,11 @@ class Order
         return $this;
     }
 
+    public function getCapacity(): int
+    {
+        return $this->capacity;
+    }
+
     public function send(): void
     {
         throw new \Exception('Not implemented');

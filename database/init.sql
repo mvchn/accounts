@@ -41,6 +41,6 @@ CREATE TABLE app_orders (
     currency VARCHAR(3) NOT NULL,
     capacity INTEGER NOT NULL,
     active BOOLEAN NOT NULL,
-    started_at TIMESTAMP NOT NULL,
+    started_at TIMESTAMP DEFAULT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
