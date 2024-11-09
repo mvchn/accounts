@@ -17,11 +17,6 @@ class Service
         return $this->name;
     }
 
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
     public function orderRequest(array $form): Order
     {
         $validator = new Validator();
@@ -39,10 +34,5 @@ class Service
         $order->setCapacity($form['capacity']);
 
         return $order;
-    }
-
-    public function getActiveOrders(): array
-    {
-        return array_filter($this->orders, fn($order) => $order->getActive() === true);
     }
 }

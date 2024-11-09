@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Integration;
 
+use App\Exception\RecordNotFoundException;
 use App\User;
 use App\UserRepository;
-use App\Exception\RecordNotFoundException;
 
 class UserRepositoryTest extends IntegrationTestCase
 {
@@ -33,8 +33,10 @@ class UserRepositoryTest extends IntegrationTestCase
         $repository = new UserRepository($this->db, 'app_users');
         $user = new User('Test User', '+1234567890');
         $user->setUserId(1);
+        $user->setEmail('test@localhost');
         $repository->addUser($user);
         $this->assertCount(1, $repository->getUsers());
+        $this->assertEquals('test@localhost', $repository->getUser(1)->getEmail());
         $this->assertEquals('Test User', $repository->getUser(1)->getName());
     }
 

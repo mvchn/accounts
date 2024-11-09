@@ -55,7 +55,6 @@ class UserRepository extends AbstractRepository
             $this->db->exec($query);
             $userId = $this->db->lastInsertId();
             $user->setUserId($userId);
-            echo "Last User ID: #$userId\n";
         }
     }
 }

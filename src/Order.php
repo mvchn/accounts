@@ -5,6 +5,8 @@ namespace App;
 class Order
 {
 
+    private int $id = 0;
+
     private $userName;
 
     private $serviceName;
@@ -20,6 +22,11 @@ class Order
         $this->serviceName = $serviceName;
         $this->amount = $amount;
         $this->active = false;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     public function getAmount(): Money

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Integration;
 
+use App\Exception\RecordNotFoundException;
 use App\Money;
 use App\Order;
 use App\OrderRepository;
@@ -34,5 +35,22 @@ class OrderRepositoryTest extends IntegrationTestCase
         $repository->insertOrder($order);
 
         $this->assertEquals(100, $order->getAmount()->getAmount());
+    }
+
+    public function testAddOrder(): void
+    {
+        $repository = new OrderRepository($this->db, 'app_orders');
+
+        $this->assertCount(0, $repository->getOrders());
+
+        $order = new Order('Test User', 'Test Service', new Money(100, 'USD'));
+        $order->setCapacity(1);
+        $repository->addOrder($order);
+
+        $this->assertCount(1, $repository->getOrders());
+        $this->assertEquals('Test Service', $repository->getOrder(0)->getServiceName());
+
+        $this->expectException(RecordNotFoundException::class);
+        $repository->getOrder(1);
     }
 }
