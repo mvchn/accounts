@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Unit;
 
-use App\Bank;
 use App\Account;
+use App\Bank;
 use App\Exception\BankException;
+use App\Service;
+use App\User;
 use PHPUnit\Framework\TestCase;
 
 class BankTest extends TestCase
@@ -41,5 +43,15 @@ class BankTest extends TestCase
 
         $this->assertEquals(50, $from->getBalance());
         $this->assertEquals(50, $to->getBalance());
+    }
+
+    public function testSubscribeService(): void
+    {
+        $bank = new Bank();
+        $user = new User('Test User', '+1234567890');
+        $service = new Service('Test Service', 'test');
+
+        $bank->subscribeService($user, $service);
+        $this->assertTrue(true);
     }
 }

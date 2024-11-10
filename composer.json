@@ -23,7 +23,8 @@
     }
   },
   "scripts": {
-    "tests": "vendor/bin/phpunit tests",
+    "tests-unit": "vendor/bin/phpunit tests/Unit",
+    "tests-integration": "vendor/bin/phpunit tests/Integration",
     "coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit tests --coverage-text --coverage-filter=src"
   }
 }

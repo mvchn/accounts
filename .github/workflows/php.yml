@@ -39,8 +39,11 @@ jobs:
           mkdir -p var/data
           touch var/data/test.db
 
-      - name: Run test suite
-        run: composer tests
+      - name: Run unit test suite
+        run: composer tests-unit
+
+      - name: Run integration test suite
+        run: composer tests-unit
 
       - name: Run with coverage
         run: composer coverage

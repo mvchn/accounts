@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
-use App\Service;
 use App\Order;
+use App\Service;
+use PHPUnit\Framework\TestCase;
 
 class ServiceTest extends TestCase
 {
