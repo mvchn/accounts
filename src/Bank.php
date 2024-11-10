@@ -64,6 +64,11 @@ class Bank
 
         $orderRepository = new OrderRepository($this->db, 'app_orders');
 
-        $orderRepository->insertOrder($order);
+        try {
+            $orderRepository->insertOrder($order);
+        } catch (\Exception $e) {
+            $log = new Logger('database');
+            $log->debug($e->getMessage());
+        }
     }
 }
