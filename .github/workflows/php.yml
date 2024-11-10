@@ -40,7 +40,7 @@ jobs:
           touch var/data/test.db
 
       - name: Run test suite
-        run: composer tests
+        run: composer tests-unit
 
       - name: Run with coverage
         run: composer coverage

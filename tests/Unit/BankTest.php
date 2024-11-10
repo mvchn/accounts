@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Unit;
 
-use App\Bank;
 use App\Account;
+use App\Bank;
 use App\Exception\BankException;
 use App\Service;
 use App\User;
